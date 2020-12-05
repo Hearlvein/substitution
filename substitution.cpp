@@ -11,9 +11,9 @@ int main()
 	cout << "Use default key? (Default key shifts each letter to one place) (y/n): ";
 	cin >> useDefaultKey;
 	if (useDefaultKey == 'n')
-    {   cout << "Enter custom cipher key: ";
-        cin >> key;
-    }
+	{   cout << "Enter custom cipher key: ";
+		cin >> key;
+	}
 
 	// Lower key for simplicity
 	for (char& c : key)
@@ -21,11 +21,11 @@ int main()
 
 	// Check key validity. New scope to destroy temporary sortedKey.
 	{
-	    if (key.size() != 26)
-        {
-            cout << "Key must be 26-digits-long!" << endl;
-            return 1;
-        }
+		if (key.size() != 26)
+		{
+			cout << "Key must be 26-digits-long!" << endl;
+			return 1;
+		}
 
 		string sortedKey = key;
 		sort(sortedKey.begin(), sortedKey.end());   // Simplicity over performance
@@ -47,43 +47,43 @@ int main()
 		return 1;
 	}
 
-    // Encrypt
+	// Encrypt
 	string encryption;
 	encryption.reserve(input.size());
 	for (char originalCharacter : input)
-    {
-        char encryptedCharacter = originalCharacter;
-        if (isalpha(originalCharacter))	// Translate alphabetic letters
-        {
-            bool lower = islower(originalCharacter);
-            size_t alphabeticIndex = (lower) ? originalCharacter - 97 : originalCharacter - 65;
-            encryptedCharacter = key[alphabeticIndex];
-            if (!lower)
-                encryptedCharacter = toupper(encryptedCharacter);
-        }
-        encryption.push_back(encryptedCharacter);
-    }
-    cout << "Encryption: " << encryption << endl;
+	{
+		char encryptedCharacter = originalCharacter;
+		if (isalpha(originalCharacter))	// Translate alphabetic letters
+		{
+			bool lower = islower(originalCharacter);
+			size_t alphabeticIndex = (lower) ? originalCharacter - 97 : originalCharacter - 65;
+			encryptedCharacter = key[alphabeticIndex];
+			if (!lower)
+				encryptedCharacter = toupper(encryptedCharacter);
+		}
+		encryption.push_back(encryptedCharacter);
+	}
+	cout << "Encryption: " << encryption << endl;
 
-    // Decrypt
-    string decryption;
-    decryption.reserve(input.size());
-    for (char originalCharacter : input)
-    {
-        char decryptedCharacter = originalCharacter;
-        if (isalpha(originalCharacter))	// Translate alphabetic letters
-        {
-            bool lower = islower(originalCharacter);
-            char loweredCharacter = tolower(originalCharacter);
-            size_t keyIndex = key.find_first_of(loweredCharacter);
-            decryptedCharacter = keyIndex + 97;
-            if (!lower)
-                decryptedCharacter = toupper(decryptedCharacter);
-        }
-        decryption.push_back(decryptedCharacter);
-    }
-    cout << "Decryption: " << decryption << endl;
+	// Decrypt
+	string decryption;
+	decryption.reserve(input.size());
+	for (char originalCharacter : input)
+	{
+		char decryptedCharacter = originalCharacter;
+		if (isalpha(originalCharacter))	// Translate alphabetic letters
+		{
+			bool lower = islower(originalCharacter);
+			char loweredCharacter = tolower(originalCharacter);
+			size_t keyIndex = key.find_first_of(loweredCharacter);
+			decryptedCharacter = keyIndex + 97;
+			if (!lower)
+				decryptedCharacter = toupper(decryptedCharacter);
+		}
+		decryption.push_back(decryptedCharacter);
+	}
+	cout << "Decryption: " << decryption << endl;
 
-    system("pause");
+	system("pause");
 	return 0;
 }
